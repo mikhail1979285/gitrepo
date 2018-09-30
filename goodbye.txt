@@ -1,2 +1,2 @@
-print('goodbye world')
-print('good morning world')
+print('goodbye world');
+print('good morning world');
