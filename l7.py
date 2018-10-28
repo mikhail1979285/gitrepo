@@ -1,3 +1,4 @@
+# Задание-1: 7 урок normal Щилов Михаил
 import random
 import sys
  
