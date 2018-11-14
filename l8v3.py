@@ -27,39 +27,39 @@ def printpole():
 
           
 
-def input_token(token):
-    a=int(input("Введите номер ячейки, куда поставить : "+' '+ token + ' '))
+def input_znak(znak):
+    a=int(input("Введите номер ячейки, куда поставить : "+' '+ znak + ' '))
     for i in range(0,25):
         if Pole1[i]==a:
-            Pole1[i]=str(token)        
+            Pole1[i]=str(znak)        
     printpole()  
 
-def check_win(Pole1):
-    win_pole=((0,1,2),(1,2,3),(2,3,4),(5,6,7),(6,7,8),(7,8,9),(10,11,12),(11,12,13),(12,13,14),(15,16,17),(16,17,18),(17,18,19),(20,21,22),(21,22,23),(22,23,24),(2,6,10),(3,7,11),(7,11,15),(4,8,12),(8,12,16),(12,16,20),(9,13,17),(13,17,21),(14,18,22),(2,8,14),(1,7,13),(7,13,19),(0,6,12),(6,12,18),(12,18,24),(5,11,17),(11,17,23),(10,16,22),(0,5,10),(5,10,15),(10,15,20),(0,5,10),(5,10,15),(10,15,20),(0,5,10),(5,10,15),(10,15,20),
+def proverka(Pole1):
+    pole_w=((0,1,2),(1,2,3),(2,3,4),(5,6,7),(6,7,8),(7,8,9),(10,11,12),(11,12,13),(12,13,14),(15,16,17),(16,17,18),(17,18,19),(20,21,22),(21,22,23),(22,23,24),(2,6,10),(3,7,11),(7,11,15),(4,8,12),(8,12,16),(12,16,20),(9,13,17),(13,17,21),(14,18,22),(2,8,14),(1,7,13),(7,13,19),(0,6,12),(6,12,18),(12,18,24),(5,11,17),(11,17,23),(10,16,22),(0,5,10),(5,10,15),(10,15,20),(0,5,10),(5,10,15),(10,15,20),(0,5,10),(5,10,15),(10,15,20),
               (1,6,11),(6,11,16),(11,16,21),(2,7,12),(7,12,17),(12,17,22),(3,8,13),(8,13,18),(13,18,23),(4,9,14),(9,14,19),(14,19,23),
               )
-    for i in win_pole:
+    for i in pole_w:
         if Pole1[i[0]]==Pole1[i[1]]==Pole1[i[2]]:
             return Pole1[i[0]]
     return False        
            
     
-def main():
+def igraigrokov():
     greatspisok()  
     schetchik=0 
     win=False
     printpole()
     while not win:
-        input_token("X")
+        input_znak("X")
         schetchik+=1
-        win=check_win(Pole1)
+        win=proverka(Pole1)
         if win:
             print(win, "Выиграл")
             win=True
             break
-        input_token("O")
+        input_znak("O")
         schetchik+=1
-        win=check_win(Pole1)
+        win=proverka(Pole1)
         if win:
             print(win, "Выиграл")
             win=True
@@ -70,8 +70,8 @@ def main():
            
 
     
-def poiskhoda_ii(token):
-    if token=="X":
+def poiskhoda_ii(znak):# не работающая функция. По идее ее надо доработать , чтобы ИИ искал вариант лучшего хода.
+    if znak=="X":
         a="O"   
     else:
         a="X"
@@ -87,24 +87,24 @@ def poiskhoda_ii(token):
             return Pole1[i[1]]      
     return False 
     
-def go_ii(token):
-    print("Ходит и думает",token)
+def go_ii(znak):
+    print("Ходит и думает",znak)
     time.sleep(5)
     f=False
     a=random.randint(1,25)
-    print(token,"пошел на клетку",a)
+    print(znak,"пошел на клетку",a)
     for i in range(0,25):
         if Pole1[i]==a:
-            Pole1[i]=str(token)
+            Pole1[i]=str(znak)
             f=Pole1[i]          
     if f:
         pass
     else:    
         print("эта клетка занята")
-        go_ii(token)         
+        go_ii(znak)         
     printpole() 
     
-def main_ii():
+def igraii():
     greatspisok()  
     schetchik=0 
     win=False
@@ -112,14 +112,14 @@ def main_ii():
     while not win:
         go_ii("X")
         schetchik+=1
-        win=check_win(Pole1)
+        win=proverka(Pole1)
         if win:
             print(win, "Выиграл")
             win=True
             break
         go_ii("O")
         schetchik+=1
-        win=check_win(Pole1)
+        win=proverka(Pole1)
         if win:
             print(win, "Выиграл")
             win=True
@@ -129,10 +129,10 @@ def main_ii():
            break
            
 def zapusk():
-    a=int(input("Введите 1, если будет играть игрок с игром и 2 если играет ИИ с ИИ : "))        
+    a=int(input("Введите 1, если будет играть игрок с игром и 2, если играет ИИ с ИИ : "))        
     if a==1:
-        main()
+        igraigrokov()
     if a==2:
-        main_ii()       
+        igraii()       
 
 zapusk()    
